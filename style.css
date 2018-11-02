@@ -1,0 +1,75 @@
+
+@import url('https://fonts.googleapis.com/css?family=Armata');
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+
+body {
+	background-color: #3E698E;
+	color: white;
+	font-family: 'Armata', sans-serif;
+}
+
+.main-container {
+	margin-top: 30px;
+	padding: 0px;
+}
+
+* {
+		/*border: 1px solid black;*/
+}
+
+div {
+	text-align: center;
+}
+
+h1, h4 {
+	margin: 9px;
+}
+
+.options-row {
+	display: flex;
+	justify-content: center;
+	margin: 10px;
+	
+}
+
+.options-column {
+	width: 170px;
+	
+}
+.session-container {
+	border: solid 5px #082C44;	
+	border-radius: 40px;
+	width: 13em;
+	margin: 20px auto;
+	padding: 15px 0px;
+
+}
+
+
+#timer-label {
+	margin: 0px;
+	font-size: 1.5em
+}
+
+#time-left {
+	font-size: 3em;
+	margin: 0px;
+	font-family: 'Space Mono', monospace;
+}
+
+.up-down-container {
+	display: inline-flex;
+	height: 20px;
+}
+
+#break-length, #session-length {
+	font-size: 20px;
+	margin: 0px 10px;
+	font-family: 'Space Mono', monospace;
+}
+
+.fa-arrow-up, .fa-arrow-down {
+	font-size: 19px;
+	margin-top: 5px
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pomodoro Clock</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+
+</head>
+<body>
+	<div class="main-container">
+		<h1>Pomodoro Clock</h1>
+	</div>
+	<div class="options-row">
+		<div class="options-column">
+			<h4 id="break-label">Break Length</h4>
+			<div class="up-down-container">
+				<i class="fas fa-arrow-up"></i>
+				<p id="break-length">5</p>
+				<i class="fas fa-arrow-down"></i>	
+			</div>
+		</div>
+		<div class="options-column">
+			<h4 id="session-label">Session Length</h4>
+			<div class="up-down-container">
+				<i class="fas fa-arrow-up"></i>
+				<p id="session-length">25</p>
+				<i class="fas fa-arrow-down"></i>
+			</div>
+			
+		</div>
+	</div>
+	<div class="session-container">
+		<p id="timer-label">Session</p>
+		<p id="time-left">25:00</p>
+	</div>
+	<div>
+		<i class="fas fa-play"></i>
+		<i class="fas fa-pause"></i>
+		<i class="fas fa-sync-alt"></i>
+	</div>
+
+
+	
+<script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>
