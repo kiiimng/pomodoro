@@ -25,7 +25,8 @@ let pomodoro = {
 	mode: "stop",
 	sessionTime: Number(sessionLength.innerHTML),
 	breakTime: Number(breakLength.innerHTML),
-	display: 0
+	display: 0,
+	setting: "session"
 	}
 displayTimeLeft(pomodoro.sessionTime*60);
 
@@ -39,9 +40,12 @@ function timer(time){
 	countdown = setInterval(()=> {
 		const secondsLeft = Math.round((then - Date.now()) / 1000);
 
-		if (secondsLeft < 0) {
+		if (secondsLeft <= 0) {
 			clearInterval(countdown);
-			return;
+			pomodoro.mode = "stop";
+			toggleSetting();
+			isRunning()
+			//return;
 		}
 		displayTimeLeft(secondsLeft);
 		pomodoro.running = true;
@@ -73,9 +77,15 @@ function isRunning(){
 		return;
 	}
 	//if not runningg and not paused, start timer
-	pomodoro.mode = "running"
-	timer("sessionTime");
+	pomodoro.mode = "running";
+	pomodoro.setting == "session" ? timer("sessionTime") : timer("breakTime");
 };
+
+function toggleSetting() {
+	pomodoro.setting == "session" ? pomodoro.setting = "break" : pomodoro.setting = "session";
+}
+
+
 
 function clockReset() {
 	clearInterval(countdown);
@@ -131,7 +141,5 @@ function decreaseSession() {
 
 
 
-
-//connect decrement/increment event clicks to object.
-//or set html based on pomodoro object properties
-
+// add audio beep after timer turns to 00:00;
+//change timeleft display to "session" or "break"
