@@ -10,15 +10,27 @@ let timeLeft = document.getElementById("time-left");
 let startStop = document.getElementById("start_stop");
 let reset = document.getElementById("reset");
 
-breakDecrement.addEventListener("click", decreaseBreak );
-breakIncrement.addEventListener("click", increaseBreak);
-sessionDecrement.addEventListener("click", decreaseSession);
-sessionIncrement.addEventListener("click", increaseSession);
 startStop.addEventListener("click", isRunning);
 reset.addEventListener("click", clockReset)
 
 
+function addListeners() {
+	breakDecrement.addEventListener("click", decreaseBreak );
+		breakIncrement.addEventListener("click", increaseBreak);
+		sessionDecrement.addEventListener("click", decreaseSession);
+		sessionIncrement.addEventListener("click", increaseSession);
+}
 
+
+
+function removeListeners() {
+	breakDecrement.removeEventListener("click", decreaseBreak );
+	breakIncrement.removeEventListener("click", increaseBreak);
+	sessionDecrement.removeEventListener("click", decreaseSession);
+	sessionIncrement.removeEventListener("click", increaseSession);
+}
+
+addListeners();
 
 
 let pomodoro = {
@@ -28,19 +40,20 @@ let pomodoro = {
 	display: 0,
 	setting: "session"
 	}
+
 displayTimeLeft(pomodoro.sessionTime*60);
 
 function timer(time){
-	
 	const seshLength = pomodoro[time] * 60;
 	const now = Date.now();
 	const then = now + seshLength *1000;
-	displayTimeLeft(seshLength);
+	//displayTimeLeft(seshLength);
 	
 	countdown = setInterval(()=> {
 		const secondsLeft = Math.round((then - Date.now()) / 1000);
 
 		if (secondsLeft <= 0) {
+			playAudio();
 			clearInterval(countdown);
 			pomodoro.mode = "stop";
 			toggleSetting();
@@ -61,9 +74,10 @@ function displayTimeLeft(seshLength) {
 }
 
 function isRunning(){
+		changeStopPlay()
+	
 	if(pomodoro.mode == "running"){
 		pomodoro.mode = "paused";
-		console.log(pomodoro.mode)
 		clearInterval(countdown);
 
 		return;
@@ -71,32 +85,44 @@ function isRunning(){
 	}
 	if (pomodoro.mode == "paused") {
 		pomodoro.mode = "running";
-		console.log(pomodoro.mode)
+		
 		//continue timer 
 		timer("display");
 		return;
 	}
 	//if not runningg and not paused, start timer
 	pomodoro.mode = "running";
+	
+	removeListeners()
 	pomodoro.setting == "session" ? timer("sessionTime") : timer("breakTime");
 };
 
 function toggleSetting() {
 	pomodoro.setting == "session" ? pomodoro.setting = "break" : pomodoro.setting = "session";
+	document.getElementById("timer-label").innerHTML = pomodoro.setting.charAt(0).toUpperCase() + pomodoro.setting.slice(1);
 }
 
 
 
 function clockReset() {
+	addListeners()
 	clearInterval(countdown);
+	startStop.classList.remove("fa-pause");
+	startStop.classList.add("fa-play");
 	pomodoro.mode = "stop";
-	pomodoro.sessionTime = 25;
+	//pomodoro.sessionTime = 25;
 	sessionLength.innerHTML =  pomodoro.sessionTime;
-	pomodoro.breakTime = 5;
+	//pomodoro.breakTime = 5;
 	breakLength.innerHTML = pomodoro.breakTime;
 	displayTimeLeft(pomodoro.sessionTime*60);
 }
 
+//change stop-play icon
+function changeStopPlay() {
+	//startStop.classList.replace();
+	pomodoro.mode == "running" ? startStop.classList.replace("fa-pause", "fa-play") : startStop.classList.replace("fa-play", "fa-pause") 
+
+}
 	
 
 
@@ -143,3 +169,10 @@ function decreaseSession() {
 
 // add audio beep after timer turns to 00:00;
 //change timeleft display to "session" or "break"
+
+let audio = document.getElementById("audio");
+
+function playAudio() {
+	audio.play()
+}
+
